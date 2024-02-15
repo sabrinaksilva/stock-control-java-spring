@@ -1,0 +1,43 @@
+server:
+  port: 8050
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: TakeAndGo
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${DB_URL:db_url}/{DB_NAME:stock-db}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:1234}
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
+
+  jpa:
+    database: MYSQL
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: ${SHOW_SQL:false}
+
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:secret}
+      issuer: ${JWT_ISSUER:auth-api}
+
+management:
+  endpoints:
+    enabled-by-default: true
+    exposure:
+      include: "*"
