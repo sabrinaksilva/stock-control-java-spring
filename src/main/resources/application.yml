@@ -8,7 +8,7 @@ spring:
     name: TakeAndGo
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: ${DB_URL:db_url}/{DB_NAME:stock-db}
+    url: jdbc:mysql://localhost:3306/stockdb
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:1234}
     hikari:
