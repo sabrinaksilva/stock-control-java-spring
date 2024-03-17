@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.domain.models.items.components;
+package com.kappann.stockcontrol.domain.models.items;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

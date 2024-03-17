@@ -1,11 +1,11 @@
 package com.kappann.stockcontrol.component;
 
-import com.kappann.stockcontrol.component.fixtures.ComponentsTestsFixtures;
-import com.kappann.stockcontrol.domain.dtos.items.components.ComponentRequest;
-import com.kappann.stockcontrol.domain.models.items.components.StockItem;
-import com.kappann.stockcontrol.helpers.NumberTestsHelper;
+import com.kappann.stockcontrol.domain.dtos.items.componentItems.ComponentRequest;
+import com.kappann.stockcontrol.domain.models.items.StockItem;
+import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
 import com.kappann.stockcontrol.mapper.ItemMapper;
 import com.kappann.stockcontrol.repository.item.ItemRepository;
+import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class ComponentsDataTests {
     @Test
     @DisplayName("Should persist a new component in database")
     void shouldSaveAComponentFromRequestDTO () {
-        ComponentRequest componentRequest = ComponentsTestsFixtures.buildComponentRequestDTO(NumberTestsHelper.getRandomPositive(), NumberTestsHelper.getRandomPositive());
+        ComponentRequest componentRequest = ComponentsTestsFixtures.buildComponentRequestDTO(NumberTestsUtils.getRandomPositive(), NumberTestsUtils.getRandomPositive());
         StockItem entity = ItemMapper.toStockItem(componentRequest);
 
         StockItem persistedEntity = repository.save(entity);

@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.domain.dtos.items.components;
+package com.kappann.stockcontrol.domain.dtos.items.componentItems;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

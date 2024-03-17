@@ -1,12 +1,12 @@
-package com.kappann.stockcontrol.security.components;
+package com.kappann.stockcontrol.configuration.beans.security;
 
-import com.kappann.stockcontrol.configuration.security.JwtConfig;
-import com.kappann.stockcontrol.security.context.CurrentUser;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.kappann.stockcontrol.configuration.security.JwtConfig;
+import com.kappann.stockcontrol.domain.context.RequestContextHolderUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
@@ -30,14 +31,14 @@ public class SecurityFilter extends OncePerRequestFilter {
     private final JwtConfig jwtConfig;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal (HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwtToken = this.recoverToken(request);
         Authentication authentication = getAuthentication(jwtToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 
-    private Authentication getAuthentication(String token) {
+    private Authentication getAuthentication (String token) {
         Algorithm algorithm = Algorithm.HMAC256(jwtConfig.getJwtSecret());
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer(jwtConfig.getIssuer())
@@ -53,7 +54,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             var authorities = roles.stream()
                     .map(SimpleGrantedAuthority::new)
                     .toList();
-            var principal = new CurrentUser(username, "", authorities, uuid);
+            var principal = new RequestContextHolderUser(username, "", authorities, uuid);
             return new UsernamePasswordAuthenticationToken(principal, token, authorities);
         } catch (JWTVerificationException ignored) {
             logger.info("User unauthorized");
@@ -62,7 +63,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     }
 
-    private String recoverToken(HttpServletRequest request) {
+    private String recoverToken (HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
         if (authHeader == null) return null;
         return authHeader.replace("Bearer ", "");

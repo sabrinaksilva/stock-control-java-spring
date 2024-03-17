@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.domain.dtos.items.compositions;
+package com.kappann.stockcontrol.domain.dtos.items.composedItems;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompositionRequest {
+public class ComposedItemRequest {
     @NotEmpty(message = "Name is required!")
     private String name;
 

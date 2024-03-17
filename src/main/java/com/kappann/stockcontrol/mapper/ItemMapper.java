@@ -1,7 +1,7 @@
 package com.kappann.stockcontrol.mapper;
 
-import com.kappann.stockcontrol.domain.dtos.items.components.ComponentRequest;
-import com.kappann.stockcontrol.domain.models.items.components.StockItem;
+import com.kappann.stockcontrol.domain.dtos.items.componentItems.ComponentRequest;
+import com.kappann.stockcontrol.domain.models.items.StockItem;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 

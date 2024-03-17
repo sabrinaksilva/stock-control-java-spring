@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.security.components;
+package com.kappann.stockcontrol.configuration.security;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,13 +10,13 @@ import java.io.IOException;
 @Component
 public class CorsConfig implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init (FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-                         FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter (ServletRequest servletRequest, ServletResponse servletResponse,
+                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
@@ -29,7 +29,7 @@ public class CorsConfig implements Filter {
     }
 
     @Override
-    public void destroy() {
+    public void destroy () {
         Filter.super.destroy();
     }
 }

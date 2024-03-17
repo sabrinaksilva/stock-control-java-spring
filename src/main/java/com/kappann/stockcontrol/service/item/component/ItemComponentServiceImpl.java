@@ -1,7 +1,7 @@
 package com.kappann.stockcontrol.service.item.component;
 
-import com.kappann.stockcontrol.domain.dtos.items.components.ComponentRequest;
-import com.kappann.stockcontrol.domain.models.items.components.StockItem;
+import com.kappann.stockcontrol.domain.dtos.items.componentItems.ComponentRequest;
+import com.kappann.stockcontrol.domain.models.items.StockItem;
 import com.kappann.stockcontrol.mapper.ItemMapper;
 import com.kappann.stockcontrol.repository.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ public class ItemComponentServiceImpl implements ItemComponentService {
     private final ItemRepository itemRepository;
 
     @Override
-    public Long saveComponent(ComponentRequest componentRequest) {
+    public Long saveComponent (ComponentRequest componentRequest) {
         StockItem stockItem = ItemMapper.toStockItem(componentRequest);
         return (itemRepository.save(stockItem)).getId();
     }
