@@ -29,3 +29,12 @@ If 1 computer is constructed, it will be registered as a product in the database
 - Should decrement the used components to manufacture the computer.
 
 Even the computer - a product which needs certain amounts of different components - could be a component of another product, like one which comes along with a keyboard and LEDs.
+
+# Running and checking the project
+- install maven and some IDE like Intellij Comunnit
+- create  a local database and register its name and your credentials - by variables, if sensible credentials.
+- run Maven reload in pom.xml to download all dependencies
+- Activate the google code style
+- Make sure Java 21 is installed and configured in the project setup at the IDE
+- Verify the code quality and sctructure - I am all open to new improvements sugestions
+- Test the implemented funcionalities by reading and running the automatizated tests
