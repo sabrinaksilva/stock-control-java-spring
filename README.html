@@ -1,55 +1,160 @@
- Stock control system
+::: WordSection1
+[]{#_ydhnxi9i96wr}**[[ Stock control
+system]{style="font-size:35.0pt;line-height:115%;font-family:\"Amatic SC\";color:#FF9900"}]{.underline}**
 
- IMPORTANT: Even though some endpoints are not implemented until now (4 a.m. of 18/03/2024), the main focus was to showcase my code style, architecture, clean code, and extensive testing (unit tests and database integration tests). Other features are yet to be implemented.
+[ **[IMPORTANT]{style="color:red"}**: Even though some endpoints are not
+implemented until now (4 a.m. of 18/03/2024), the main focus was to
+showcase my c**ode style, architecture, clean code, and extensive
+testing (unit tests and database integration tests)**. Other features
+are yet to be implemented.]{style="font-family:\"Amatic SC\""}
 
- 
+[ ]{style="font-family:\"Amatic SC\""}
 
- Context:
+**[ Context:]{style="font-size:15.0pt;line-height:115%;
+font-family:\"Amatic SC\""}**
 
-●         Some client (Let's call him Cris) deal with acquisition and  manufacturing of diverse kind of products and sell those products and need stock control for them:
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[ Some
+client (Let\'s call him Cris) deal with acquisition and  manufacturing
+of diverse kind of products and sell those products and need stock
+control for them:]{style="font-family:\"Amatic SC\""}
 
-●        A product can be composed of other products from its inventory or can be a component sold separately. No problems at all.
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[A
+product can be composed of other products from its inventory or can be a
+component sold separately. No problems at
+all.]{style="font-family:\"Amatic SC\""}
 
-○        One of the requirements are:
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[One
+of the requirements are:]{style="font-family:\"Amatic SC\""}
 
-■         if a product A uses (x amounts of the product b +Y amounts of the product C), so, when the product A be constructed those x and y amounts must be subtracted from the products B and C, respectivlym, but the current quantity of an entire produced computer will increase.
+[■[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[ if
+a **product A** uses (]{style="font-family:\"Amatic SC\""}**[x
+]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}**[amounts]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}[
+of the ]{style="font-family:\"Amatic SC\""}[product **b +Y**
+]{style="font-size:13.0pt;
+line-height:115%;font-family:\"Amatic SC\""}[amounts of the product
+]{style="font-family:\"Amatic SC\""}**[C]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}**[),
+so, when the **product A** be constructed
+those]{style="font-family:\"Amatic SC\""}[ **x and y**
+]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}**[a]{style="font-family:\"Amatic SC\""}**[mounts
+must be subtracted from the products B and C, respectivlym, but the
+current quantity of an entire produced computer will
+increase.]{style="font-family:\"Amatic SC\""}
 
-   
+[    ]{style="font-family:\"Amatic SC\""}
 
- Use cases:
+**[ Use cases:]{style="font-size:15.0pt;line-height:115%;
+font-family:\"Amatic SC\""}**
 
-●         The client is able to sell, separately  computer processors, motherboards, air coolers for computers, and all the related components of a computer
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[ The
+client is able to sell, separately  computer processors, motherboards,
+air coolers for computers, and all the related components of a computer
+]{style="font-family:\"Amatic SC\""}
 
-○        Each computer component mentioned above is a product in their stock, which registers the current quantity of this product in the inventory, along with information such as name, and others..
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}**[[Each
+computer component mentioned above is a product in their
+stock]{style="font-family:\"Amatic SC\";color:#F1C232"}]{.underline}**[,
+which registers the current quantity of this product in the inventory,
+along with information such as name, and
+others..]{style="font-family:\"Amatic SC\""}
 
-○        The client is also able to sell an entire desktop computer.build from the items (computer components mentioned above) he owns at this inventory
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\";color:#F1C232"}**[[The
+client is also able to sell an entire desktop computer.build from the
+items (computer components mentioned above) he owns at this
+inventory]{style="font-family:\"Amatic SC\";color:#F1C232"}]{.underline}**
 
-○        The client can already have x amounts of desktop computers produced by him  and ready to sell it with immediate delivery,, the stock control will show that x desktop computers can be sold immediately - no need to manufacture them.
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[The
+client**[[ can already have x amounts of desktop computers produced by
+him  and ready to sell it with immediate
+delivery]{style="color:#F1C232"}]{.underline}**,, the stock control will
+show that x desktop computers can be sold immediately - no need to
+manufacture them.]{style="font-family:\"Amatic SC\""}
 
- 
+[ ]{style="font-family:\"Amatic SC\""}
 
-●        If the client does not have any desktop computers already produced and ready to be sold, they can check if they have all the computer components needed to manufacture a new one and sell it.
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[If
+the client does not have any desktop computers already produced and
+ready to be sold, they can check if they have all the computer
+components needed to manufacture a new one and sell
+it.]{style="font-family:\"Amatic SC\""}
 
-○        The stock will provide information about how many computers can be produced with the current components available in their inventory.
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[The
+stock will provide information about how many computers can be produced
+with the current components available in their
+inventory.]{style="font-family:\"Amatic SC\""}
 
-■        The system registers what components are needed to produce the computer, as well as how much of each component is needed to produce it.
+[■[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[The
+system registers what components are needed to produce the computer, as
+well as how much of each component is needed to produce
+it.]{style="font-family:\"Amatic SC\""}
 
-●        For example: to produce a computer, in addition to other components, you need 2 air coolers, 1 processor, and 1 motherboard.
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[For
+example: to]{style="font-family:\"Amatic SC\""}**[ produce a computer,
+in addition to other components, you need 2 air coolers, 1 processor,
+and 1
+motherboard]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}**[.]{style="font-family:\"Amatic SC\""}
 
-○        The client is now able to know if/how many computers can be produced depending on the quantity of each necessary supply they have in their stock.
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[The
+client is now able to know if/h**ow many computers can be produced
+depending on the quantity of each necessary supply they have in their
+stock.**]{style="font-family:\"Amatic SC\""}
 
-■         Example:
+[■[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[ Example:
+]{style="font-family:\"Amatic SC\""}
 
-●        if they only needed 2 air coolers, 1 processor, and 1 motherboard to build up a computer and sell it, and
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[if
+they only needed ]{style="font-family:\"Amatic SC\""}**[2 air coolers, 1
+processor, and 1 motherboard to build up a
+computer]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}[
+]{style="font-family:\"Amatic SC\""}**[and sell it,
+and]{style="font-family:\"Amatic SC\""}
 
-●         currently have 3 processors, 5 air coolers, and 6 motherboards (remembering: each one of them can be sold separately!), the system must provide information that only 2 computers can be produced with such an amount of supplies.
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[ currently
+have]{style="font-family:\"Amatic SC\""}**[ 3 processors, 5 air coolers,
+and 6
+motherboards]{style="font-size:13.0pt;line-height:115%;font-family:\"Amatic SC\""}**[
+(**[remembering: each one of them can be sold
+separately!)]{style="color:#FF9900"}**, the system must provide
+information that only 2 computers can be produced with such an amount of
+supplies.]{style="font-family:
+\"Amatic SC\""}
 
-●        iF 1 COMPUTER BE CONSTRUCTED, WILL BE  REGISTER AS A PRODUCT IN THE DATABASE
+[●[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[[iF
+1 COMPUTER BE CONSTRUCTED, WILL BE  REGISTER AS A PRODUCT IN THE
+DATABASE]{style="font-family:\"Amatic SC\""}]{.underline}
 
-○        SHOULD INCREMENT THE CURRENT AVAILABLE QUANTITY IN STOCK.OF THE COMPUTER
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[[SHOULD
+INCREMENT THE CURRENT AVAILABLE QUANTITY IN STOCK.OF THE
+COMPUTER]{style="font-family:\"Amatic SC\""}]{.underline}
 
-○        SHOULD DECREMENT THE USED COMPONENTS TO MANUFACTURE THE COMPUTER
+[○[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}[[SHOULD
+DECREMENT THE USED COMPONENTS TO MANUFACTURE THE
+COMPUTER]{style="font-family:\"Amatic SC\""}]{.underline}
 
- 
+[ ]{style="font-family:\"Amatic SC\""}
 
-■        eVEN THE COMPUTER - A PRODUCT WICH NEEDS CERTAIN AMOUNTS OF DIFFERENT COMPONENTS - COULD BE A COMPONENT OF ANOTHER PRODUCT, LIKE ONE WICH COMES ALONG WITH KEYBOARD AND LEDS.
+[■[       
+]{style="font:7.0pt \"Times New Roman\""}]{style="font-family:\"Amatic SC\""}**[[eVEN
+THE COMPUTER ]{style="font-family:\"Amatic SC\""}]{.underline}**[- A
+PRODUCT WICH NEEDS CERTAIN AMOUNTS OF DIFFERENT COMPONENTS - **[COULD BE
+A COMPONENT OF ANOTHER PRODUCT,]{.underline}** LIKE ONE WICH COMES ALONG
+WITH KEYBOARD AND LEDS.]{style="font-family:\"Amatic SC\""}
+:::
