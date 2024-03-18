@@ -5,6 +5,7 @@ import com.kappann.stockcontrol.domain.dtos.products.compositions.ProductCompose
 import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.domain.models.products.ProductComponent;
 import com.kappann.stockcontrol.utils.prices.PricesCalculatorUtils;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AccessLevel;
@@ -26,12 +27,14 @@ public class ProductMapper {
 
   public static Product toEntity(ProductComposedRequest request,
       Set<ProductComponent> components) {
+    BigDecimal costPrice = PricesCalculatorUtils.getCostPriceFromComponents(components);
     return Product
         .builder()
         .name(request.getName())
         .description(request.getDescription())
         .components(components)
-        .costPrice(PricesCalculatorUtils.getCostPriceFromComponents(components))
+        .costPrice(costPrice)
+        .sellingPrice(request.getProfitValue().add(costPrice))
         .build();
   }
 }

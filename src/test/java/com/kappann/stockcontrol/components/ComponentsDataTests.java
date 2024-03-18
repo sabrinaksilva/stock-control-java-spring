@@ -8,6 +8,7 @@ import com.kappann.stockcontrol.domain.dtos.products.components.ComponentOfProdu
 import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
 import com.kappann.stockcontrol.mapper.ProductMapper;
+import com.kappann.stockcontrol.repository.products.ProductComponentRepository;
 import com.kappann.stockcontrol.repository.products.ProductRepository;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +24,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 class ComponentsDataTests {
 
   @Autowired
-  ProductRepository repository;
+  ProductRepository productRepository;
+
+  @Autowired
+  ProductComponentRepository productComponentRepository;
 
   @Autowired
   TestEntityManager em;
@@ -41,8 +45,7 @@ class ComponentsDataTests {
         NumberTestsUtils.generateRandomBigDecimalPositive());
     Product entity = ProductMapper.toEntity(componentOfProductRequest);
 
-    Product persistedEntity = repository.save(entity);
-
+    Product persistedEntity = productRepository.save(entity);
     assertNotNull(persistedEntity.getId());
     assertEquals(em.find(Product.class, persistedEntity.getId()), persistedEntity);
   }
