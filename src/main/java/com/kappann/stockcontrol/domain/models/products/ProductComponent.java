@@ -14,12 +14,12 @@ import lombok.*;
 @Builder
 public class ProductComponent {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @NotNull(message = "ProductC omponent must be provided")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull(message = "Product component must be provided")
     @JoinColumn(name = "product_component_id")
     private Product componentProduct;
 

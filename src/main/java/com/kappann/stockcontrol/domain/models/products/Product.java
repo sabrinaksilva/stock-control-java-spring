@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -31,7 +31,7 @@ public class Product {
 
     private String description;
 
-    @OneToMany(mappedBy = "componentProduct", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "componentProduct", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductComponent> components = new ArrayList<>();
 
     @Column
