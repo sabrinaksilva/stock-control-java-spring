@@ -8,12 +8,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ComponentProductMapper {
 
-    public static ProductComponent toProductComponentEntity (Product componentProduct, Integer quantity) {
-        return ProductComponent.builder()
-                .componentProduct(componentProduct)
-                .quantity(quantity)
-                .build();
-    }
+  public static ProductComponent toProductComponentEntity(Product componentProduct,
+      Integer quantity) {
+    return ProductComponent.builder()
+        .componentProduct(componentProduct)
+        .quantity(quantity)
+        .build();
+  }
 
 
 }

@@ -4,7 +4,8 @@ import com.kappann.stockcontrol.domain.dtos.products.compositions.ProductCompose
 import jakarta.validation.Valid;
 
 public interface ProductComposedService {
-    Long saveComposedProduct (@Valid ProductComposedRequest productComposedRequest);
+
+  Long saveComposedProduct(@Valid ProductComposedRequest productComposedRequest);
 
 
 }

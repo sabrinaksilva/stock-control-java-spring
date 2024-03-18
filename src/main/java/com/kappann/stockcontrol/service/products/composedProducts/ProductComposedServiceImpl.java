@@ -7,41 +7,44 @@ import com.kappann.stockcontrol.mapper.ComponentProductMapper;
 import com.kappann.stockcontrol.repository.ProductRepository;
 import com.kappann.stockcontrol.utils.prices.PricesCalculatorUtils;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
 public class ProductComposedServiceImpl implements ProductComposedService {
-    private final ProductRepository productRepository;
 
-    @Override
-    public Long saveComposedProduct (ProductComposedRequest productComposedRequest) {
-        List<ProductComponent> componentsEntities = new ArrayList<>();
-        addComponents(productComposedRequest, componentsEntities);
-        BigDecimal costPrice = PricesCalculatorUtils.getCostPriceFromComponents(componentsEntities);
+  private final ProductRepository productRepository;
 
-        Product composedProduct = Product.builder()
-                .name(productComposedRequest.getName())
-                .description(productComposedRequest.getDescription())
-                .components(componentsEntities)
-                .costPrice(costPrice)
-                .sellingPrice(costPrice.add(productComposedRequest.getProfitValue()))
-                .build();
+  @Override
+  public Long saveComposedProduct(ProductComposedRequest productComposedRequest) {
+    List<ProductComponent> componentsEntities = new ArrayList<>();
+    addComponents(productComposedRequest, componentsEntities);
+    BigDecimal costPrice = PricesCalculatorUtils.getCostPriceFromComponents(componentsEntities);
 
-        return productRepository.save(composedProduct).getId();
-    }
+    Product composedProduct = Product.builder()
+        .name(productComposedRequest.getName())
+        .description(productComposedRequest.getDescription())
+        .components(componentsEntities)
+        .costPrice(costPrice)
+        .sellingPrice(costPrice.add(productComposedRequest.getProfitValue()))
+        .build();
+
+    return productRepository.save(composedProduct).getId();
+  }
 
 
-    private void addComponents (ProductComposedRequest productComposedRequest, List<ProductComponent> components) {
-        productComposedRequest.getComponents().forEach(component -> {
-            Product productComponent = productRepository
-                    .findById(component.getComponentId())
-                    .orElseThrow(() -> new EntityNotFoundException("Component product not found! Id = " + component.getComponentId()));
-            components.add(ComponentProductMapper.toProductComponentEntity(productComponent, component.getRequiredQuantity()));
-        });
-    }
+  private void addComponents(ProductComposedRequest productComposedRequest,
+      List<ProductComponent> components) {
+    productComposedRequest.getComponents().forEach(component -> {
+      Product productComponent = productRepository
+          .findById(component.getComponentId())
+          .orElseThrow(() -> new EntityNotFoundException(
+              "Component product not found! Id = " + component.getComponentId()));
+      components.add(ComponentProductMapper.toProductComponentEntity(productComponent,
+          component.getRequiredQuantity()));
+    });
+  }
 }

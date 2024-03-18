@@ -10,11 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductComponentServiceImpl implements ProductComponentService {
-    private final ProductRepository productRepository;
 
-    @Override
-    public Long saveComponent (ComponentOfProductRequest componentOfProductRequest) {
-        Product product = ProductMapper.toEntity(componentOfProductRequest);
-        return (productRepository.save(product)).getId();
-    }
+  private final ProductRepository productRepository;
+
+  @Override
+  public Long saveComponent(ComponentOfProductRequest componentOfProductRequest) {
+    Product product = ProductMapper.toEntity(componentOfProductRequest);
+    return (productRepository.save(product)).getId();
+  }
 }
