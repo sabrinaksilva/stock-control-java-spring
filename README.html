@@ -1,216 +1,55 @@
-<html>
+ Stock control system
 
-<head>
-<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:"Amatic SC";
-	panose-1:0 0 5 0 0 0 0 0 0 0;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	line-height:115%;
-	font-size:11.0pt;
-	font-family:"Arial",sans-serif;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:3.0pt;
-	margin-left:0in;
-	line-height:115%;
-	page-break-after:avoid;
-	font-size:26.0pt;
-	font-family:"Arial",sans-serif;}
-.MsoChpDefault
-	{font-family:"Arial",sans-serif;}
-.MsoPapDefault
-	{line-height:115%;}
-@page WordSection1
-	{size:595.45pt 841.7pt;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
--->
-</style>
+ IMPORTANT: Even though some endpoints are not implemented until now (4 a.m. of 18/03/2024), the main focus was to showcase my code style, architecture, clean code, and extensive testing (unit tests and database integration tests). Other features are yet to be implemented.
 
-</head>
+ 
 
-<body lang=EN-US style='word-wrap:break-word'>
+ Context:
 
-<div class=WordSection1>
+●         Some client (Let's call him Cris) deal with acquisition and  manufacturing of diverse kind of products and sell those products and need stock control for them:
 
-<p class=MsoTitle align=center style='text-align:center'><a name="_ydhnxi9i96wr"></a><b><u><span
-style='font-size:35.0pt;line-height:115%;font-family:"Amatic SC";color:#FF9900'> Stock
-control system</span></u></b></p>
+●        A product can be composed of other products from its inventory or can be a component sold separately. No problems at all.
 
-<p class=MsoNormal><span style='font-family:"Amatic SC"'> <b><span
-style='color:red'>IMPORTANT</span></b>: Even though some endpoints are not
-implemented until now (4 a.m. of 18/03/2024), the main focus was to showcase my
-c<b>ode style, architecture, clean code, and extensive testing (unit tests and
-database integration tests)</b>. Other features are yet to be implemented.</span></p>
+○        One of the requirements are:
 
-<p class=MsoNormal><span style='font-family:"Amatic SC"'>&nbsp;</span></p>
+■         if a product A uses (x amounts of the product b +Y amounts of the product C), so, when the product A be constructed those x and y amounts must be subtracted from the products B and C, respectivlym, but the current quantity of an entire produced computer will increase.
 
-<p class=MsoNormal><b><span style='font-size:15.0pt;line-height:115%;
-font-family:"Amatic SC"'> Context:</span></b></p>
+   
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'> Some client (Let's call
-him Cris) deal with acquisition and  manufacturing of diverse kind of products
-and sell those products and need stock control for them:</span></p>
+ Use cases:
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>A product can be composed
-of other products from its inventory or can be a component sold separately. No
-problems at all.</span></p>
+●         The client is able to sell, separately  computer processors, motherboards, air coolers for computers, and all the related components of a computer
 
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>One of the requirements
-are:</span></p>
+○        Each computer component mentioned above is a product in their stock, which registers the current quantity of this product in the inventory, along with information such as name, and others..
 
-<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>■<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'> if a<b> product A</b> uses
-(</span><b><span style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'>x
-</span></b><span style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'>amounts</span><span
-style='font-family:"Amatic SC"'> of the </span><span style='font-size:13.0pt;
-line-height:115%;font-family:"Amatic SC"'>product<b> b +Y </b></span><span
-style='font-family:"Amatic SC"'>amounts of the product </span><b><span
-style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'>C</span></b><span
-style='font-family:"Amatic SC"'>), so, when the<b> product A </b>be constructed
-those</span><span style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'>
-<b>x and y </b></span><b><span style='font-family:"Amatic SC"'>a</span></b><span
-style='font-family:"Amatic SC"'>mounts must be subtracted from the products B
-and C, respectivlym, but the current quantity of an entire produced computer
-will increase.</span></p>
+○        The client is also able to sell an entire desktop computer.build from the items (computer components mentioned above) he owns at this inventory
 
-<p class=MsoNormal><span style='font-family:"Amatic SC"'>    </span></p>
+○        The client can already have x amounts of desktop computers produced by him  and ready to sell it with immediate delivery,, the stock control will show that x desktop computers can be sold immediately - no need to manufacture them.
 
-<p class=MsoNormal><b><span style='font-size:15.0pt;line-height:115%;
-font-family:"Amatic SC"'> Use cases:</span></b></p>
+ 
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'> The client is able to
-sell, separately  computer processors, motherboards, air coolers for computers,
-and all the related components of a computer </span></p>
+●        If the client does not have any desktop computers already produced and ready to be sold, they can check if they have all the computer components needed to manufacture a new one and sell it.
 
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><u><span style='font-family:"Amatic SC";color:#F1C232'>Each
-computer component mentioned above is a product in their stock</span></u></b><span
-style='font-family:"Amatic SC"'>, which registers the current quantity of this
-product in the inventory, along with information such as name, and others..</span></p>
+○        The stock will provide information about how many computers can be produced with the current components available in their inventory.
 
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC";color:#F1C232'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><u><span style='font-family:"Amatic SC";color:#F1C232'>The
-client is also able to sell an entire desktop computer.build from the items
-(computer components mentioned above) he owns at this inventory</span></u></b></p>
+■        The system registers what components are needed to produce the computer, as well as how much of each component is needed to produce it.
 
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>The client<b><u><span
-style='color:#F1C232'> can already have x amounts of desktop computers produced
-by him  and ready to sell it with immediate delivery</span></u></b>,, the stock
-control will show that x desktop computers can be sold immediately - no need to
-manufacture them.</span></p>
+●        For example: to produce a computer, in addition to other components, you need 2 air coolers, 1 processor, and 1 motherboard.
 
-<p class=MsoNormal style='margin-left:1.0in'><span style='font-family:"Amatic SC"'>&nbsp;</span></p>
+○        The client is now able to know if/how many computers can be produced depending on the quantity of each necessary supply they have in their stock.
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>If the client does not have
-any desktop computers already produced and ready to be sold, they can check if
-they have all the computer components needed to manufacture a new one and sell
-it.</span></p>
+■         Example:
 
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>The stock will provide
-information about how many computers can be produced with the current
-components available in their inventory.</span></p>
+●        if they only needed 2 air coolers, 1 processor, and 1 motherboard to build up a computer and sell it, and
 
-<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>■<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>The system registers what
-components are needed to produce the computer, as well as how much of each
-component is needed to produce it.</span></p>
+●         currently have 3 processors, 5 air coolers, and 6 motherboards (remembering: each one of them can be sold separately!), the system must provide information that only 2 computers can be produced with such an amount of supplies.
 
-<p class=MsoNormal style='margin-left:2.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>For example: to</span><b><span
-style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'> produce a
-computer, in addition to other components, you need 2 air coolers, 1 processor,
-and 1 motherboard</span></b><span style='font-family:"Amatic SC"'>.</span></p>
+●        iF 1 COMPUTER BE CONSTRUCTED, WILL BE  REGISTER AS A PRODUCT IN THE DATABASE
 
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>The client is now able to
-know if/h<b>ow many computers can be produced depending on the quantity of each
-necessary supply they have in their stock.</b></span></p>
+○        SHOULD INCREMENT THE CURRENT AVAILABLE QUANTITY IN STOCK.OF THE COMPUTER
 
-<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>■<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'> Example: </span></p>
+○        SHOULD DECREMENT THE USED COMPONENTS TO MANUFACTURE THE COMPUTER
 
-<p class=MsoNormal style='margin-left:2.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'>if they only needed </span><b><span
-style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'>2 air
-coolers, 1 processor, and 1 motherboard to build up a computer</span></b><b><span
-style='font-family:"Amatic SC"'> </span></b><span style='font-family:"Amatic SC"'>and
-sell it, and</span></p>
+ 
 
-<p class=MsoNormal style='margin-left:2.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Amatic SC"'> currently have</span><b><span
-style='font-size:13.0pt;line-height:115%;font-family:"Amatic SC"'> 3
-processors, 5 air coolers, and 6 motherboards</span></b><span style='font-family:
-"Amatic SC"'> (<b><span style='color:#FF9900'>remembering: each one of them can
-be sold separately!)</span></b>, the system must provide information that only
-2 computers can be produced with such an amount of supplies.</span></p>
-
-<p class=MsoNormal style='margin-left:2.0in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>●<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><u><span style='font-family:"Amatic SC"'>iF 1 COMPUTER BE
-CONSTRUCTED, WILL BE  REGISTER AS A PRODUCT IN THE DATABASE</span></u></p>
-
-<p class=MsoNormal style='margin-left:2.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><u><span style='font-family:"Amatic SC"'>SHOULD INCREMENT THE
-CURRENT AVAILABLE QUANTITY IN STOCK.OF THE COMPUTER</span></u></p>
-
-<p class=MsoNormal style='margin-left:2.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>○<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><u><span style='font-family:"Amatic SC"'>SHOULD DECREMENT THE
-USED COMPONENTS TO MANUFACTURE THE COMPUTER</span></u></p>
-
-<p class=MsoNormal><span style='font-family:"Amatic SC"'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
-style='font-family:"Amatic SC"'>■<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><u><span style='font-family:"Amatic SC"'>eVEN THE COMPUTER </span></u></b><span
-style='font-family:"Amatic SC"'>- A PRODUCT WICH NEEDS CERTAIN AMOUNTS OF
-DIFFERENT COMPONENTS -<b><u> COULD BE A COMPONENT OF ANOTHER PRODUCT,</u></b>
-LIKE ONE WICH COMES ALONG WITH KEYBOARD AND LEDS.</span></p>
-
-</div>
-
-</body>
-
-</html>
+■        eVEN THE COMPUTER - A PRODUCT WICH NEEDS CERTAIN AMOUNTS OF DIFFERENT COMPONENTS - COULD BE A COMPONENT OF ANOTHER PRODUCT, LIKE ONE WICH COMES ALONG WITH KEYBOARD AND LEDS.
