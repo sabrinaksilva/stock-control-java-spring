@@ -14,7 +14,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductMapper {
 
-  public static Product toEntity(ComponentOfProductRequest request) {
+  public static Product toEntity(ComponentOfProductRequest request,
+      Integer currentQuantityInStock) {
     return Product
         .builder()
         .name(request.getName())
@@ -22,6 +23,7 @@ public class ProductMapper {
         .components(new HashSet<>())
         .costPrice(request.getCostPrice())
         .sellingPrice(request.getCostPrice().add(request.getProfitValue()))
+        .currentQuantityInStock(currentQuantityInStock)
         .build();
   }
 
@@ -35,6 +37,7 @@ public class ProductMapper {
         .components(components)
         .costPrice(costPrice)
         .sellingPrice(request.getProfitValue().add(costPrice))
+        .currentQuantityInStock(request.getCurrentQuantityInStock())
         .build();
   }
 }

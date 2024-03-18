@@ -11,6 +11,7 @@ import com.kappann.stockcontrol.mapper.ProductMapper;
 import com.kappann.stockcontrol.repository.products.ProductComponentRepository;
 import com.kappann.stockcontrol.repository.products.ProductRepository;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
+import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,8 @@ class ComponentsDataTests {
     ComponentOfProductRequest componentOfProductRequest = ComponentsTestsFixtures.buildComponentRequestDTO(
         NumberTestsUtils.generateRandomBigDecimalPositive(),
         NumberTestsUtils.generateRandomBigDecimalPositive());
-    Product entity = ProductMapper.toEntity(componentOfProductRequest);
+    Product entity = ProductMapper.toEntity(componentOfProductRequest,
+        new Random().nextInt(0, 100));
 
     Product persistedEntity = productRepository.save(entity);
     assertNotNull(persistedEntity.getId());

@@ -11,6 +11,7 @@ import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
 import com.kappann.stockcontrol.mapper.ProductMapper;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import java.math.BigDecimal;
+import java.util.Random;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,8 @@ public class ComponentUnitTests {
     ComponentOfProductRequest requestDTO = ComponentsTestsFixtures.buildComponentRequestDTO(
         costPrice, profitValue);
 
-    Product entity = ProductMapper.toEntity(requestDTO);
+    Integer quantity = new Random().nextInt(0, 100);
+    Product entity = ProductMapper.toEntity(requestDTO, quantity);
 
     assertEquals(requestDTO.getName(), entity.getName());
     assertEquals(requestDTO.getDescription(), entity.getDescription());
@@ -35,6 +37,7 @@ public class ComponentUnitTests {
     assertEquals(requestDTO.getCostPrice().add(profitValue), entity.getSellingPrice());
     assertNull(entity.getId());
     assertFalse(entity.isComposition());
+    assertEquals(entity.getCurrentQuantityInStock(), quantity);
   }
 
 

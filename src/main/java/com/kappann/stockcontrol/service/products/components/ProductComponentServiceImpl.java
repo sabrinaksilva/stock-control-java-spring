@@ -7,6 +7,7 @@ import com.kappann.stockcontrol.mapper.ProductMapper;
 import com.kappann.stockcontrol.repository.products.ProductComponentRepository;
 import com.kappann.stockcontrol.repository.products.ProductRepository;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,8 @@ public class ProductComponentServiceImpl implements ProductComponentService {
 
   @Override
   public Long saveComponent(ComponentOfProductRequest componentOfProductRequest) {
-    Product product = ProductMapper.toEntity(componentOfProductRequest);
+    Product product = ProductMapper.toEntity(componentOfProductRequest,
+        new Random().nextInt(0, 100));
     return (productRepository.save(product)).getId();
   }
 
