@@ -7,4 +7,8 @@ public class ClientError extends RestClientException {
   public ClientError(String msg) {
     super(msg);
   }
+
+  public ClientError(String msg, Throwable ex) {
+    super(msg, ex);
+  }
 }

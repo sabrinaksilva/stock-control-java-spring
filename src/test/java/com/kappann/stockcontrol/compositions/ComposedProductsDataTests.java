@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.composedProducts;
+package com.kappann.stockcontrol.compositions;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.boot.jdbc.EmbeddedDatabaseConnection.H2;
@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 @AutoConfigureTestDatabase(connection = H2, replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
@@ -27,9 +26,6 @@ public class ComposedProductsDataTests {
 
   @Autowired
   ProductRepository repository;
-
-  @Autowired
-  TestEntityManager em;
 
 
   @Test

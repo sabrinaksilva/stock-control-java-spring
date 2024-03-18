@@ -20,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class AuthorizationConfig {
 
-  private static final String V1 = "/api/v1";
   private final SecurityFilter securityFilter;
 
   @Bean

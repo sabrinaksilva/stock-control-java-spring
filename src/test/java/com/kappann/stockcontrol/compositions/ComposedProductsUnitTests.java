@@ -5,24 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.domain.models.products.ProductComponent;
 import com.kappann.stockcontrol.mapper.ComponentProductMapper;
-import com.kappann.stockcontrol.repository.ProductRepository;
-import com.kappann.stockcontrol.service.products.composedProducts.ProductComposedService;
 import com.kappann.stockcontrol.utils.ConstantsTestsUtils;
 import com.kappann.stockcontrol.utils.prices.PricesCalculatorUtils;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 public class ComposedProductsUnitTests {
-
-  @MockBean
-  ProductRepository productRepository;
-
-  @Autowired
-  ProductComposedService productComposedService;
 
 
   @Test

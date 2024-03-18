@@ -26,26 +26,11 @@ public class ComposedProductsTestsFixtures {
 
   public static ProductComposedRequest buildComposedProductRequestRandomComponentsQuantities(
       List<Long> componentsIds) {
-    List<ProductComponentRequest> componentsOfComposedProduct = componentsIds
-        .stream()
-        .map(ComposedProductsTestsFixtures::buildProductInCompositionRequest
-        )
-        .toList();
 
     return ProductComposedRequest.builder()
         .name(ConstantsTestsUtils.DEFAULT_COMPOSED_ITEMS_NAMES.get(0))
         .description(ConstantsTestsUtils.DEFAULT_COMPOSED_ITEMS_DESCRIPTIONS.get(0))
         .profitValue(NumberTestsUtils.generateRandomBigDecimalPositive())
-        .build();
-  }
-
-  public static ProductComposedRequest buildComposedProductRequestFromComponents(
-      List<ProductComponentRequest> componentsOfComposedProduct) {
-    return ProductComposedRequest.builder()
-        .name(ConstantsTestsUtils.DEFAULT_COMPOSED_ITEMS_NAMES.getLast())
-        .description(ConstantsTestsUtils.DEFAULT_COMPOSED_ITEMS_DESCRIPTIONS.getLast())
-        .profitValue(NumberTestsUtils.generateRandomBigDecimalPositive())
-        .components(componentsOfComposedProduct)
         .build();
   }
 
