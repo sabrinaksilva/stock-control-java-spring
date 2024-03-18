@@ -1,10 +1,10 @@
-package com.kappann.stockcontrol.component;
+package com.kappann.stockcontrol.components;
 
-import com.kappann.stockcontrol.domain.dtos.items.componentItems.ComponentRequest;
-import com.kappann.stockcontrol.domain.models.items.StockItem;
+import com.kappann.stockcontrol.domain.dtos.products.components.ComponentOfProductRequest;
+import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
-import com.kappann.stockcontrol.mapper.ItemMapper;
-import com.kappann.stockcontrol.repository.item.ItemRepository;
+import com.kappann.stockcontrol.mapper.ProductMapper;
+import com.kappann.stockcontrol.repository.ProductRepository;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +22,7 @@ import static org.springframework.boot.jdbc.EmbeddedDatabaseConnection.H2;
 @DataJpaTest
 class ComponentsDataTests {
     @Autowired
-    ItemRepository repository;
+    ProductRepository repository;
 
     @Autowired
     TestEntityManager em;
@@ -35,13 +35,13 @@ class ComponentsDataTests {
     @Test
     @DisplayName("Should persist a new component in database")
     void shouldSaveAComponentFromRequestDTO () {
-        ComponentRequest componentRequest = ComponentsTestsFixtures.buildComponentRequestDTO(NumberTestsUtils.getRandomPositive(), NumberTestsUtils.getRandomPositive());
-        StockItem entity = ItemMapper.toStockItem(componentRequest);
+        ComponentOfProductRequest componentOfProductRequest = ComponentsTestsFixtures.buildComponentRequestDTO(NumberTestsUtils.generateRandomBigDecimalPositive(), NumberTestsUtils.generateRandomBigDecimalPositive());
+        Product entity = ProductMapper.toEntity(componentOfProductRequest);
 
-        StockItem persistedEntity = repository.save(entity);
+        Product persistedEntity = repository.save(entity);
 
         assertNotNull(persistedEntity.getId());
-        assertEquals(em.find(StockItem.class, persistedEntity.getId()), persistedEntity);
+        assertEquals(em.find(Product.class, persistedEntity.getId()), persistedEntity);
     }
 
 }

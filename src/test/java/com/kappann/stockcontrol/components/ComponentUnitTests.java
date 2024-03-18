@@ -1,9 +1,9 @@
-package com.kappann.stockcontrol.component;
+package com.kappann.stockcontrol.components;
 
-import com.kappann.stockcontrol.domain.dtos.items.componentItems.ComponentRequest;
-import com.kappann.stockcontrol.domain.models.items.StockItem;
+import com.kappann.stockcontrol.domain.dtos.products.components.ComponentOfProductRequest;
+import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
-import com.kappann.stockcontrol.mapper.ItemMapper;
+import com.kappann.stockcontrol.mapper.ProductMapper;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,12 +19,12 @@ public class ComponentUnitTests {
     @Test
     @DisplayName("When mapping the DTO from request to the entity to be saved, must set all params")
     void testMapFromRequestDtoToEntity () {
-        BigDecimal costPrice = NumberTestsUtils.getRandomPositive();
-        BigDecimal profitValue = NumberTestsUtils.getRandomPositive();
+        BigDecimal costPrice = NumberTestsUtils.generateRandomBigDecimalPositive();
+        BigDecimal profitValue = NumberTestsUtils.generateRandomBigDecimalPositive();
 
-        ComponentRequest requestDTO = ComponentsTestsFixtures.buildComponentRequestDTO(costPrice, profitValue);
+        ComponentOfProductRequest requestDTO = ComponentsTestsFixtures.buildComponentRequestDTO(costPrice, profitValue);
 
-        StockItem entity = ItemMapper.toStockItem(requestDTO);
+        Product entity = ProductMapper.toEntity(requestDTO);
 
         assertEquals(requestDTO.getName(), entity.getName());
         assertEquals(requestDTO.getDescription(), entity.getDescription());

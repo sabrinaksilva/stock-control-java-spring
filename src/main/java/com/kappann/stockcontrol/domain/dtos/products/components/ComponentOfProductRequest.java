@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.domain.dtos.items.componentItems;
+package com.kappann.stockcontrol.domain.dtos.products.components;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ComponentRequest {
+public class ComponentOfProductRequest {
     @NotEmpty(message = "Name is required!")
     private String name;
     private String description;

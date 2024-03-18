@@ -1,12 +1,11 @@
-package com.kappann.stockcontrol.domain.models.items;
+package com.kappann.stockcontrol.domain.models.products;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,12 +13,13 @@ import java.util.List;
 
 
 @Getter
+@Setter
 @Entity
-@Table(name = "stock_item")
+@Table(name = "product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StockItem {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -31,12 +31,12 @@ public class StockItem {
 
     private String description;
 
-    @OneToMany(mappedBy = "componentItem", fetch = FetchType.LAZY)
-    private List<ItemComponent> components = new ArrayList<>();
+    @OneToMany(mappedBy = "componentProduct", fetch = FetchType.LAZY)
+    private List<ProductComponent> components = new ArrayList<>();
 
     @Column
-    @NotNull(message = "Cost price for item must be provided!")
-    private BigDecimal costPrice;
+    @JsonSetter(nulls = Nulls.SKIP)
+    private BigDecimal costPrice = BigDecimal.ZERO;
 
     @NotNull(message = "Sale price must be provided!")
     private BigDecimal sellingPrice;

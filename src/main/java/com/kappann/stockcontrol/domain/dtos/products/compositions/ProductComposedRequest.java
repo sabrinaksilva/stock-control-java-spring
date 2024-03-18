@@ -1,12 +1,9 @@
-package com.kappann.stockcontrol.domain.dtos.items.composedItems;
+package com.kappann.stockcontrol.domain.dtos.products.compositions;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,7 +13,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ComposedItemRequest {
+@Builder
+public class ProductComposedRequest {
     @NotEmpty(message = "Name is required!")
     private String name;
 
@@ -26,7 +24,7 @@ public class ComposedItemRequest {
     @PositiveOrZero(message = "Profit value must be positive!")
     private BigDecimal profitValue;
 
-    @NotEmpty(message = "Components of this item must be provided!")
-    private List<ItemInCompositionRequest> components = new ArrayList<>();
+    @NotEmpty(message = "Components of this product composed must be provided!")
+    private List<ProductComponentRequest> components = new ArrayList<>();
 
 }
