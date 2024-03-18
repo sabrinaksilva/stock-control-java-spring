@@ -12,7 +12,7 @@ public class ComponentProductMapper {
       Integer quantity) {
     return ProductComponent.builder()
         .componentProduct(componentProduct)
-        .quantity(quantity)
+        .requiredQuantity(quantity)
         .build();
   }
 

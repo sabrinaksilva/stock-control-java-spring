@@ -1,7 +1,5 @@
 package com.kappann.stockcontrol.domain.models.products;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,8 +12,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,16 +41,22 @@ public class Product {
 
   private String description;
 
-  @OneToMany(mappedBy = "componentProduct", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<ProductComponent> components = new ArrayList<>();
+  @OneToMany(mappedBy = "parentProduct", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+      CascadeType.MERGE, CascadeType.DETACH})
+  @Builder.Default
+  private Set<ProductComponent> components = new HashSet<>();
+
 
   @Column
-  @JsonSetter(nulls = Nulls.SKIP)
+  @Builder.Default
   private BigDecimal costPrice = BigDecimal.ZERO;
 
   @NotNull(message = "Sale price must be provided!")
   private BigDecimal sellingPrice;
 
+  @Column
+  @Builder.Default
+  private Integer currentQuantityInStock = 0;
 
   public boolean isComposition() {
     return this.components != null && !this.components.isEmpty();

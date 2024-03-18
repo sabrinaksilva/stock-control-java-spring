@@ -8,7 +8,7 @@ import com.kappann.stockcontrol.domain.dtos.products.components.ComponentOfProdu
 import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
 import com.kappann.stockcontrol.mapper.ProductMapper;
-import com.kappann.stockcontrol.repository.ProductRepository;
+import com.kappann.stockcontrol.repository.products.ProductRepository;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

@@ -10,10 +10,11 @@ import com.kappann.stockcontrol.domain.models.products.ProductComponent;
 import com.kappann.stockcontrol.fixtures.ComponentsTestsFixtures;
 import com.kappann.stockcontrol.fixtures.ComposedProductsTestsFixtures;
 import com.kappann.stockcontrol.mapper.ProductMapper;
-import com.kappann.stockcontrol.repository.ProductRepository;
+import com.kappann.stockcontrol.repository.products.ProductRepository;
 import com.kappann.stockcontrol.utils.NumberTestsUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class ComposedProductsDataTests {
 
     ProductComposedRequest request = ComposedProductsTestsFixtures.buildComposedProductRequestRandomComponentsQuantities(
         componentsIds);
-    List<ProductComponent> components = List.of(
-        ProductComponent.builder().componentProduct(null).quantity(3).build());
+    Set<ProductComponent> components = Set.of(
+        ProductComponent.builder().componentProduct(null).requiredQuantity(3).build());
     Product entity = ProductMapper.toEntity(request, components);
     assertThrows(Exception.class, () -> repository.save(entity));
   }
@@ -51,9 +52,9 @@ public class ComposedProductsDataTests {
     ProductComposedRequest request = ComposedProductsTestsFixtures.buildComposedProductRequestRandomComponentsQuantities(
         componentsIds);
 
-    List<ProductComponent> components = List.of(
-        ProductComponent.builder().componentProduct(component1).quantity(3).build(),
-        ProductComponent.builder().componentProduct(component2).quantity(null).build());
+    Set<ProductComponent> components = Set.of(
+        ProductComponent.builder().componentProduct(component1).requiredQuantity(3).build(),
+        ProductComponent.builder().componentProduct(component2).requiredQuantity(null).build());
 
     Product entityWithNullQuantity = ProductMapper.toEntity(request, components);
     assertThrows(Exception.class, () -> repository.save(entityWithNullQuantity));
@@ -69,9 +70,9 @@ public class ComposedProductsDataTests {
     ProductComposedRequest request = ComposedProductsTestsFixtures.buildComposedProductRequestRandomComponentsQuantities(
         componentsIds);
 
-    List<ProductComponent> components = List.of(
-        ProductComponent.builder().componentProduct(component1).quantity(-3).build(),
-        ProductComponent.builder().componentProduct(component2).quantity(4).build());
+    Set<ProductComponent> components = Set.of(
+        ProductComponent.builder().componentProduct(component1).requiredQuantity(-3).build(),
+        ProductComponent.builder().componentProduct(component2).requiredQuantity(4).build());
 
     Product entityWithNegativeQuantity = ProductMapper.toEntity(request, components);
     assertThrows(Exception.class, () -> repository.save(entityWithNegativeQuantity));

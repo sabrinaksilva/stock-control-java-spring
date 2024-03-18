@@ -1,4 +1,4 @@
-package com.kappann.stockcontrol.repository;
+package com.kappann.stockcontrol.repository.products;
 
 import com.kappann.stockcontrol.domain.models.products.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

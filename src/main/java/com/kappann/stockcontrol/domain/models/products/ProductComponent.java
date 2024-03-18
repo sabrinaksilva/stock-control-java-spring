@@ -36,8 +36,12 @@ public class ProductComponent {
   @JoinColumn(name = "product_component_id")
   private Product componentProduct;
 
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @NotNull(message = "Parent product (composition) must be provided")
+  @JoinColumn(name = "parent_product_id")
+  private Product parentProduct;
 
-  @PositiveOrZero(message = "quantity must be provided")
-  private Integer quantity;
+  @PositiveOrZero(message = "Quantity must be > 0")
+  private Integer requiredQuantity;
 
 }

@@ -1,11 +1,13 @@
 package com.kappann.stockcontrol.domain.dtos.products.compositions;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +31,10 @@ public class ProductComposedRequest {
   private BigDecimal profitValue;
 
   @NotEmpty(message = "Components of this product composed must be provided!")
-  private List<ProductComponentRequest> components = new ArrayList<>();
+  private Set<ProductComponentRequest> components = new HashSet<>();
+
+  @JsonSetter(nulls = Nulls.SKIP)
+  @PositiveOrZero(message = "The current quantity available/ready in stock must be >= 0")
+  private Integer currentQuantityInStock = 0;
 
 }

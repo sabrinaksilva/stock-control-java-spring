@@ -9,6 +9,7 @@ import com.kappann.stockcontrol.utils.ConstantsTestsUtils;
 import com.kappann.stockcontrol.utils.prices.PricesCalculatorUtils;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +46,7 @@ public class ComposedProductsUnitTests {
             .costPrice(costPrices.get(2)).sellingPrice(costPrices.get(2).add(profitValues.get(2)))
             .build());
 
-    List<ProductComponent> productComponentsEntities = List.of(
+    Set<ProductComponent> productComponentsEntities = Set.of(
         ComponentProductMapper.toProductComponentEntity(componentsEntity.get(0), quantities.get(0)),
         ComponentProductMapper.toProductComponentEntity(componentsEntity.get(1), quantities.get(1)),
         ComponentProductMapper.toProductComponentEntity(componentsEntity.get(2),

@@ -5,8 +5,8 @@ import com.kappann.stockcontrol.domain.dtos.products.compositions.ProductCompose
 import com.kappann.stockcontrol.domain.models.products.Product;
 import com.kappann.stockcontrol.domain.models.products.ProductComponent;
 import com.kappann.stockcontrol.utils.prices.PricesCalculatorUtils;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
@@ -18,14 +18,14 @@ public class ProductMapper {
         .builder()
         .name(request.getName())
         .description(request.getDescription())
-        .components(new ArrayList<>())
+        .components(new HashSet<>())
         .costPrice(request.getCostPrice())
         .sellingPrice(request.getCostPrice().add(request.getProfitValue()))
         .build();
   }
 
   public static Product toEntity(ProductComposedRequest request,
-      List<ProductComponent> components) {
+      Set<ProductComponent> components) {
     return Product
         .builder()
         .name(request.getName())
